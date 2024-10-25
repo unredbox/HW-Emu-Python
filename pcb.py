@@ -10,8 +10,8 @@ READ_TERMINATOR = b"\r"
 WRITE_TERMINATOR = b"\r\n"
 
 CURRENT_ADDRESS = None
-PICKER_INPUTS = [0] * 20
-AUX_SENSORS = [0] * 20
+PICKER_INPUTS = [1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+AUX_SENSORS = [1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 PICKER_STATUS = [0] * 20  # I think this is used to track when movement is completed?
 AUX_STATUS = [0] * 20  # I think this is used to track when movement is completed?
 
