@@ -6,4 +6,4 @@ from hal_hw_emu.pcb.SerialCommand import SerialCommand
 class VendDoorRentCommand(SerialCommand):
     def run(self):
         self.logger.debug("VendDoorRent")
-        self.ser.write(b"OK\r\n")
+        self.ser.write(b"V OK\r\n")
