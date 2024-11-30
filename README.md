@@ -9,8 +9,8 @@ A tool for emulating the hardware that the Hardware Abstraction Layer (HAL) talk
 
 -   install python from [this fork](https://github.com/NulAsh/cpython/releases/tag/v3.10.1win7-1)
 -   install the requirements: `pip install -r requirements.txt`
--   setup a virtual com port with something like [VirtualSerialPort](https://www.virtual-serial-port.org/) in pair mode
-    -   if using VSP, use a split type with COM1 -> COM10, and COM3 -> COM13
+-   Setup a virtual com port with something like [com0com](https://sourceforge.net/projects/com0com/)
+    -   Setup pairs if COM1 -> COM10, and COM3 -> COM13
 -   start the scripts in 2 different command prompts:
     -   `python pcb.py`
     -   `python arcus.py`
