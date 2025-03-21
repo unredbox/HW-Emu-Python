@@ -5,8 +5,10 @@ from inspect import isabstract, isclass
 
 import serial
 
-from hal_hw_emu.pcb.common import BitString, BoardAddress, CommandRegistry, is_valid_address
+from hal_hw_emu.pcb.CommandRegistry import CommandRegistry
+from hal_hw_emu.pcb.common import BoardAddress, is_valid_address
 from hal_hw_emu.pcb.SerialCommand import SerialCommand
+from hal_hw_emu.pcb.State import State
 
 
 class PCB:
@@ -14,20 +16,18 @@ class PCB:
     READ_TERMINATOR = b"\r"
     WRITE_TERMINATOR = b"\r\n"
     current_address = None
-    PICKER_INPUTS = BitString(20)
-    AUX_SENSORS = BitString(20)
-    PICKER_STATUS = BitString(20)  # I think this is used to track when movement is completed?
-    AUX_STATUS = BitString(20)  # I think this is used to track when movement is completed?
 
     is_running = True
     ser: serial.Serial = None
     registry: CommandRegistry
     logger = logging.getLogger("PCB")
+    state: State
 
     def connect(self):
         """
         Creates the serial connection
         """
+        self.state = State()
         self.ser = serial.Serial(
             port=self.PORT,
             baudrate=9600,
@@ -37,7 +37,7 @@ class PCB:
             timeout=0,
         )
 
-        self.registry = CommandRegistry(self.ser, self.logger)
+        self.registry = CommandRegistry(self.ser, self.logger, self.state)
 
         self.logger.info(f"Connected to: {self.ser.portstr}")
 
