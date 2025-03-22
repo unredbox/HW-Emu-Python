@@ -1,4 +1,4 @@
-from hal_hw_emu.pcb.common import BoardAddress, serial_command
+from hal_hw_emu.pcb.common import BoardAddress, InputState, PickerInput, PickerStatus, serial_command
 from hal_hw_emu.pcb.SerialCommand import SerialCommand
 
 
@@ -7,4 +7,20 @@ from hal_hw_emu.pcb.SerialCommand import SerialCommand
 class RollerToPos4Command(SerialCommand):
     def run(self):
         self.logger.debug("RollerToPos4")
+        # TODO: this is probably wrong
+        self.registry.state_manager.picker_status.set_bit(PickerStatus.RollerToPos1, InputState.Inactive)
+        self.registry.state_manager.picker_status.set_bit(PickerStatus.RollerToPos2, InputState.Inactive)
+        self.registry.state_manager.picker_status.set_bit(PickerStatus.RollerToPos3, InputState.Inactive)
+        self.registry.state_manager.picker_status.set_bit(PickerStatus.RollerToPos4, InputState.Active)
+        self.registry.state_manager.picker_status.set_bit(PickerStatus.RollerToPos5, InputState.Inactive)
+        self.registry.state_manager.picker_status.set_bit(PickerStatus.RollerToPos6, InputState.Inactive)
+
+        # TODO: dunno about the ordering
+        self.registry.state_manager.picker_inputs.set_bit(PickerInput.Sensor1, InputState.Active)
+        self.registry.state_manager.picker_inputs.set_bit(PickerInput.Sensor2, InputState.Active)
+        self.registry.state_manager.picker_inputs.set_bit(PickerInput.Sensor3, InputState.Active)
+        self.registry.state_manager.picker_inputs.set_bit(PickerInput.Sensor4, InputState.Active)
+        self.registry.state_manager.picker_inputs.set_bit(PickerInput.Sensor5, InputState.Inactive)
+        self.registry.state_manager.picker_inputs.set_bit(PickerInput.Sensor6, InputState.Inactive)
+
         self.ser.write(b"T OK\r\n")

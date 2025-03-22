@@ -1,4 +1,4 @@
-from hal_hw_emu.pcb.common import BitString, BoardAddress, serial_command
+from hal_hw_emu.pcb.common import BoardAddress, PickerStatus, serial_command
 from hal_hw_emu.pcb.SerialCommand import SerialCommand
 
 
@@ -6,5 +6,5 @@ from hal_hw_emu.pcb.SerialCommand import SerialCommand
 class StatusPickerCommand(SerialCommand):
     def run(self):
         self.logger.debug("StatusPicker")
-        bitstring = BitString(20, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-        self.ser.write(f"{bitstring}S OK\r\n".encode("ascii"))
+        print(self.registry.state_manager.picker_status.is_bit_set(PickerStatus.TrackOpen))
+        self.ser.write(f"{self.registry.state_manager.picker_status}S OK\r\n".encode("ascii"))

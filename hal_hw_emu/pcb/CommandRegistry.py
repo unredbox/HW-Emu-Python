@@ -3,19 +3,19 @@ from logging import Logger
 from serial import Serial
 
 from hal_hw_emu.pcb.common import BoardAddress
-from hal_hw_emu.pcb.State import State
+from hal_hw_emu.pcb.StateManager import StateManager
 
 
 class CommandRegistry:
     commands = {BoardAddress.Picker: {}, BoardAddress.Aux: {}, BoardAddress.Serial: {}, BoardAddress.QR: {}}
     ser: Serial
     logger: Logger
-    state: State
+    state_manager: StateManager
 
-    def __init__(self, ser: Serial, logger: Logger, state: State):
+    def __init__(self, ser: Serial, logger: Logger, state_manager: StateManager):
         self.ser = ser
         self.logger = logger
-        self.state = state
+        self.state_manager = state_manager
 
     def register(self, command):
         self.commands[command.address][command.code] = command(self)

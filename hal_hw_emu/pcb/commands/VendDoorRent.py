@@ -6,7 +6,7 @@ from hal_hw_emu.pcb.SerialCommand import SerialCommand
 class VendDoorRentCommand(SerialCommand):
     def run(self):
         self.logger.debug("VendDoorRent")
-        self.registry.state.set_aux_input_state(AuxInput.VendDoorClosed, InputState.Inactive)
-        self.registry.state.set_aux_input_state(AuxInput.VendDoorSell, InputState.Inactive)
-        self.registry.state.set_aux_input_state(AuxInput.VendDoorRent, InputState.Active)
+        self.registry.state_manager.aux_inputs.set_bit(AuxInput.VendDoorRent, InputState.Active)
+        self.registry.state_manager.aux_inputs.set_bit(AuxInput.VendDoorClosed, InputState.Inactive)
+        self.registry.state_manager.aux_inputs.set_bit(AuxInput.VendDoorSell, InputState.Inactive)
         self.ser.write(b"V OK\r\n")

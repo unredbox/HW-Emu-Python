@@ -9,6 +9,7 @@ from hal_hw_emu.pcb.CommandRegistry import CommandRegistry
 from hal_hw_emu.pcb.common import BoardAddress, is_valid_address
 from hal_hw_emu.pcb.SerialCommand import SerialCommand
 from hal_hw_emu.pcb.State import State
+from hal_hw_emu.pcb.StateManager import StateManager
 
 
 class PCB:
@@ -21,13 +22,13 @@ class PCB:
     ser: serial.Serial = None
     registry: CommandRegistry
     logger = logging.getLogger("PCB")
-    state: State
+    state_manager: StateManager
 
     def connect(self):
         """
         Creates the serial connection
         """
-        self.state = State()
+        self.state_manager = StateManager()
         self.ser = serial.Serial(
             port=self.PORT,
             baudrate=9600,
@@ -37,7 +38,7 @@ class PCB:
             timeout=0,
         )
 
-        self.registry = CommandRegistry(self.ser, self.logger, self.state)
+        self.registry = CommandRegistry(self.ser, self.logger, self.state_manager)
 
         self.logger.info(f"Connected to: {self.ser.portstr}")
 
@@ -74,6 +75,8 @@ class PCB:
             command.run()
         except Exception as e:
             self.logger.error(f"Exception running command '{cmd}' for address '{address}': {e}")
+            # print trace
+            self.logger.exception(e)
             self.ser.write(b"ERR\r\n")
 
     def start(self):

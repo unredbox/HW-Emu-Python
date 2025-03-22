@@ -2,11 +2,19 @@ from enum import Enum
 
 
 class InputState(Enum):
+    """
+    Sensor input states
+    """
+
     Inactive = 0
     Active = 1
 
 
 class AuxInput(Enum):
+    """
+    Sensor bit indexes for Aux commands
+    """
+
     QlmDown = 0
     QlmUp = 1
     VendDoorClosed = 2
@@ -29,7 +37,11 @@ class AuxInput(Enum):
     Unused11 = 19
 
 
-class PickerInputs(Enum):
+class PickerInput(Enum):
+    """
+    Sensor bit indexes for Picker commands
+    """
+
     Extend = 0
     Retract = 1
     TrackClose = 2
@@ -52,6 +64,38 @@ class PickerInputs(Enum):
     Unused7 = 19
 
 
+class PickerStatus(Enum):
+    """
+    Status bits for Picker commands, these are all - 1 from the original code
+    """
+
+    GripperExtend = 4
+    GripperRetract = 5
+    TrackClose = 6
+    TrackOpen = 7
+    GripperClose = 7
+    GripperOpen = 19
+    GripperRent = 11
+    RollerToPos4 = 14
+    RollerToPos5 = 15
+    RollerToPos6 = 16
+    RollerToPos1 = 17
+    RollerToPos2 = 18
+    RollerToPos3 = 19
+
+
+class AuxStatus(Enum):
+    """
+    Status bits for Aux commands, these are all - 1 from the original code
+    """
+
+    QlmDisengage = 4
+    QlmEngage = 5
+    VendDoorClose = 6
+    VendDoorOpen = 7
+    VendDoorRent = 9
+
+
 class BoardAddress(Enum):
     Picker = "H001"
     Aux = "H002"
@@ -64,9 +108,11 @@ def is_valid_address(value: str) -> bool:
 
 
 class BitString:
+    size: int
     bits: list[int]
 
     def __init__(self, size: int, bits: list[int] = None):
+        self.size = size
         if bits:
             self.bits = bits
         else:

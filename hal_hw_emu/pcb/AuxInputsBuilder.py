@@ -66,12 +66,12 @@ class AuxInputsBuilder:
         Initial values for AuxInputs on a VMZ
         """
         return AuxInputsBuilder.build(
-            qlm_down=InputState.Active.value,
-            qlm_up=InputState.Active.value,
+            qlm_down=InputState.Inactive.value,
+            qlm_up=InputState.Inactive.value,
             vend_door_closed=InputState.Active.value,
             vend_door_sell=InputState.Inactive.value,
             vend_door_rent=InputState.Inactive.value,
-            qlm_bay_door=InputState.Active.value,
+            qlm_bay_door=InputState.Inactive.value,
             unused1=InputState.Inactive.value,
             qlm_presence=InputState.Inactive.value,
             upper_external_vend=InputState.Inactive.value,

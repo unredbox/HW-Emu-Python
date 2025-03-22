@@ -1,4 +1,4 @@
-from hal_hw_emu.pcb.common import BoardAddress, serial_command
+from hal_hw_emu.pcb.common import BoardAddress, InputState, PickerStatus, serial_command
 from hal_hw_emu.pcb.SerialCommand import SerialCommand
 
 
@@ -6,4 +6,6 @@ from hal_hw_emu.pcb.SerialCommand import SerialCommand
 class GripperExtendHaltCommand(SerialCommand):
     def run(self):
         self.logger.debug("GripperExtendHalt")
+        self.registry.state_manager.picker_status.set_bit(PickerStatus.GripperExtend, InputState.Active)
+        self.registry.state_manager.picker_status.set_bit(PickerStatus.GripperRetract, InputState.Inactive)
         self.ser.write(b"K OK\r\n")

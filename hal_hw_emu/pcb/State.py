@@ -1,18 +1,23 @@
-from hal_hw_emu.pcb.AuxInputsBuilder import AuxInputsBuilder
-from hal_hw_emu.pcb.common import AuxInput, BitString, InputState
+from typing import Generic, TypeVar
+
+from hal_hw_emu.pcb.common import BitString, InputState
+
+T = TypeVar("T")
 
 
-class State:
-    PICKER_INPUTS = BitString(20)
-    AUX_INPUTS = AuxInputsBuilder.default()  # aka Aux inputs
-    PICKER_STATUS = BitString(20)  # I think this is used to track when movement is completed?
-    AUX_STATUS = BitString(20)  # I think this is used to track when movement is completed?
+class State(BitString, Generic[T]):
+    def __init__(self, size: int, bits=None):
+        super().__init__(size, bits)
 
-    def set_aux_input_state(self, input: AuxInput, state: InputState):
-        self.AUX_INPUTS.bits[input.value] = state.value
+    @classmethod
+    def from_bitstring(cls, bitstring: BitString):
+        return cls(bitstring.size, bitstring.bits)
 
-    def get_aux_input_state(self, input: AuxInput):
-        return self.AUX_INPUTS.bits[input.value]
+    def set_bit(self, bit: T, state: InputState):
+        self.bits[bit.value] = state.value
 
-    def is_aux_input_active(self, input: AuxInput):
-        return self.AUX_INPUTS.bits[input.value] == InputState.Active.value
+    def get_bit(self, bit: T):
+        return self.bits[bit.value]
+
+    def is_bit_set(self, bit: T):
+        return self.bits[bit.value] == InputState.Active.value

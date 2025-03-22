@@ -6,6 +6,4 @@ from hal_hw_emu.pcb.SerialCommand import SerialCommand
 class AuxSensorsReadCommand(SerialCommand):
     def run(self):
         self.logger.debug("AuxSensorsRead")
-        # bitstring = BitString(20, [1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0])
-        bitstring = self.registry.state.AUX_INPUTS
-        self.ser.write(f"{bitstring}R OK\r\n".encode("ascii"))
+        self.ser.write(f"{self.registry.state_manager.aux_inputs}R OK\r\n".encode("ascii"))
