@@ -53,19 +53,26 @@ class Arcus:
 
         self.logger.info(f"Loaded {len(self.registry.commands)} commands")
 
-    def process_command(self, cmd: str):
+    def process_command(self, data: str):
         try:
-            # cmd, value = (data, None)
-            # # if the command is a setter, split the command and value
-            # if "=" in data:
-            #     cmd, value = data.split("=", 1)
-            command = self.registry.get_command(cmd)
-            args = self.registry.extract_args(cmd, command)
+            data = data.strip("\r\x00")
+            # cmd = data
 
-            self.logger.debug(f"Running command {cmd} with args: {args}")
-            command.run(**args)
+            # # if the command is a setter, extract the command name
+            # if "=" in data:
+            #     cmd = data.split("=", 1)[0]
+
+            cmd = self.registry.get_command(data)
+            # extract the arguments from the command
+            args = self.registry.extract_args(data, cmd)
+
+            args_str = f" with args {args}" if args else ""
+            self.logger.debug(f"Running command {cmd.name}{args_str}")
+            cmd.run(**args)
         except Exception as e:
-            self.logger.error(f"Exception running command '{cmd}': {e}")
+            # extract command name
+            cmd = data.split("=", 1)[0]
+            self.logger.error(f"Exception running command '{cmd}': {e}\n{data}")
             self.ser.write(b"ERR\r\n")
 
     def start(self):

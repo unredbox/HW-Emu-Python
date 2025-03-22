@@ -6,16 +6,18 @@ from serial import Serial
 from hal_hw_emu.arcus import SerialCommand
 
 
-def serial_command(code):
+def serial_command(code, name=None, description=None):
     def decorator(cls):
         cls.code = code
+        cls.name = name if name else code
+        cls.description = description
         return cls
 
     return decorator
 
 
 class CommandRegistry:
-    commands = {}
+    commands: dict[str, SerialCommand] = {}
     ser: Serial
     logger: Logger
 
@@ -25,17 +27,12 @@ class CommandRegistry:
 
     def register(self, command: SerialCommand):
         self.commands[command.code] = command(self.ser, self.logger)
-        self.logger.debug(f"Registered command {command.code}")
+        self.logger.debug(f"Registered command {command.name}")
 
     def get_command(self, cmd: str):
-        # if not cmd in self.commands[cmd]:
-        #     raise Exception(f"Unknown Command")
-        # return self.commands[cmd]
-
-        # find by matching the input again the command code using regex
+        # find by matching the input against the command code using regex
         for code, command in self.commands.items():
-            matches = re.match(code, cmd)
-            print(code, matches)
+            matches = re.match(f"^{code}$", cmd)
             if matches:
                 return command
 
