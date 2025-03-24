@@ -8,4 +8,5 @@ class GripperRetractCommand(SerialCommand):
         self.logger.debug("GripperRetract")
         self.registry.state_manager.picker_status.set_bit(PickerStatus.GripperRetract, InputState.Active)
         self.registry.state_manager.picker_status.set_bit(PickerStatus.GripperExtend, InputState.Inactive)
+        self.registry.state_manager.picker_status.set_bit(PickerStatus.GripperRent, InputState.Inactive)
         self.ser.write(b"M OK\r\n")

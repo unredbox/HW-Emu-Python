@@ -103,6 +103,11 @@ class BoardAddress(Enum):
     QR = "H555"
 
 
+class RollerDirection(Enum):
+    In = 0
+    Out = 1
+
+
 def is_valid_address(value: str) -> bool:
     return any(value == item.value for item in BoardAddress)
 

@@ -1,4 +1,4 @@
-from hal_hw_emu.pcb.common import BitString, BoardAddress, serial_command
+from hal_hw_emu.pcb.common import BoardAddress, serial_command
 from hal_hw_emu.pcb.SerialCommand import SerialCommand
 
 

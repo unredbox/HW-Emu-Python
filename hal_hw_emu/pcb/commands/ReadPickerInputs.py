@@ -6,5 +6,4 @@ from hal_hw_emu.pcb.SerialCommand import SerialCommand
 class ReadPickerInputsCommand(SerialCommand):
     def run(self):
         self.logger.debug("ReadPickerInputs")
-        bitstring = BitString(20, [0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0])
-        self.ser.write(f"{bitstring}R OK\r\n".encode("ascii"))
+        self.ser.write(f"{self.registry.state_manager.picker_inputs}R OK\r\n".encode("ascii"))

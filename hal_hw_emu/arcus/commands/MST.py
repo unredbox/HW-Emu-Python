@@ -6,4 +6,5 @@ from hal_hw_emu.arcus.common import serial_command
 class MotorStatusCommand(SerialCommand):
     def run(self, axis: str):
         self.logger.debug(f"MotorStatus; Axis {axis}")
-        self.ser.write(b"\x2f\x04")
+        # TODO: state?
+        self.ser.write(b"0\x04")  # 0 should mean motor stopped

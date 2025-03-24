@@ -12,7 +12,7 @@ class AuxInputsBuilder:
 
     @staticmethod
     def build(
-        qlm_down: Union[int, InputState],
+        front_door: Union[int, InputState],
         qlm_up: Union[int, InputState],
         vend_door_closed: Union[int, InputState],
         vend_door_sell: Union[int, InputState],
@@ -36,7 +36,7 @@ class AuxInputsBuilder:
         bitstring = BitString(
             20,
             [
-                AuxInputsBuilder.forceInt(qlm_down),
+                AuxInputsBuilder.forceInt(front_door),
                 AuxInputsBuilder.forceInt(qlm_up),
                 AuxInputsBuilder.forceInt(vend_door_closed),
                 AuxInputsBuilder.forceInt(vend_door_sell),
@@ -66,12 +66,12 @@ class AuxInputsBuilder:
         Initial values for AuxInputs on a VMZ
         """
         return AuxInputsBuilder.build(
-            qlm_down=InputState.Inactive.value,
-            qlm_up=InputState.Inactive.value,
+            front_door=InputState.Active.value,  # this is called QlmDown in the original code..?
+            qlm_up=InputState.Active.value,  # idfk
             vend_door_closed=InputState.Active.value,
             vend_door_sell=InputState.Inactive.value,
             vend_door_rent=InputState.Inactive.value,
-            qlm_bay_door=InputState.Inactive.value,
+            qlm_bay_door=InputState.Active.value,  # ???
             unused1=InputState.Inactive.value,
             qlm_presence=InputState.Inactive.value,
             upper_external_vend=InputState.Inactive.value,

@@ -19,5 +19,8 @@ class State(BitString, Generic[T]):
     def get_bit(self, bit: T):
         return self.bits[bit.value]
 
+    def is_in_state(self, input: T, state: InputState):
+        return self.bits[input.value] == state.value
+
     def is_bit_set(self, bit: T):
-        return self.bits[bit.value] == InputState.Active.value
+        return self.is_in_state(bit, InputState.Active)

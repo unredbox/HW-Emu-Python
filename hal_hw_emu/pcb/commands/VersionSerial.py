@@ -6,4 +6,4 @@ from hal_hw_emu.pcb.SerialCommand import SerialCommand
 class VersionSerialCommand(SerialCommand):
     def run(self):
         self.logger.debug("VersionSerial")
-        self.ser.write(b"0.0.1\rOK\r\n")
+        self.ser.write(b"ID101 RS232 INT DANIEL LEIWE 12/16/05 OK\r\n")

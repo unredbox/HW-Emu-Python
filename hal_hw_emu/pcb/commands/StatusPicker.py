@@ -6,5 +6,4 @@ from hal_hw_emu.pcb.SerialCommand import SerialCommand
 class StatusPickerCommand(SerialCommand):
     def run(self):
         self.logger.debug("StatusPicker")
-        print(self.registry.state_manager.picker_status.is_bit_set(PickerStatus.TrackOpen))
         self.ser.write(f"{self.registry.state_manager.picker_status}S OK\r\n".encode("ascii"))
