@@ -22,3 +22,5 @@ The easiest way is to run this in the Virtual Machine (if you are using one), ho
     -   Start in terminal:
         -   `python -m hal_hw_emu`
 -   Start or restart the HAL service using services.msc or cmd
+
+If you encounter issues running this version, please try [V1](https://github.com/unredbox/HW-Emu-Python/blob/main/)
