@@ -19,4 +19,4 @@ The easiest way is to run this in the Virtual Machine (if you are using one), ho
     -   `python arcus.py`
 -   Start or restart the HAL service using services.msc or cmd
 
-You may also be interested in looking at [V2](https://github.com/unredbox/HW-Emu-Python/tree/v2) which is packed into a single file, with an all around more robust design including the ability to run as a Windows service.
+You may also be interested in looking at [V2](https://github.com/unredbox/HW-Emu-Python/tree/v2) which is better designed.
